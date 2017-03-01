@@ -1,0 +1,53 @@
+<html><pre>
+1 <font color='#FF00FF'>#include &lt;stdio.h&gt;
+</font>
+<font color='#0000FF'><b>int</b> </font><font color='#0000FF'><a name="main">main</a></font>( )
+2 
+3    {
+4    <font color='#0000FF'><b>int</b> </font><font color='#0000FF'><a name="num_symbols">num_symbols</a></font><font color=#00000><b>=</b></font><font color='#00FFFF'><i>0</i></font>; 
+5    <font color='#0000FF'><b>int</b> </font><font color='#0000FF'><a name="line">line</a> </font><font color=#00000><b>=</b></font><font color='#00FFFF'><i>1</i></font>; 
+6    <font color='#0000FF'><b>int</b> </font><font color='#0000FF'><a name="column">column</a> </font><font color=#00000><b>=</b></font><font color='#00FFFF'><i>4</i></font>; 
+7    <font color='#0000FF'><b>int</b> </font><font color='#0000FF'><a name="paren">paren</a> </font><font color=#00000><b>=</b></font><font color='#00FFFF'><i>0</i></font>; 
+
+8    <font color='#0000FF'><b>struct</b> </font><font color='#0000FF'><a name="entry">entry</a> <font color='#000000'>
+9    </font>  </font>
+10       {
+11       <font color='#0000FF'><b>char</b> </font><font color=#00000><b>*</b></font><font color='#0000FF'><a name="lexptr">lexptr</a></font>; 
+12       <font color='#0000FF'><b>int</b> </font><font color='#0000FF'><a name="token">token</a></font>; 
+13       }; 
+
+14   <font color='#0000FF'><b>struct</b> </font><font color='#0000FF'><a href="#entry">entry</a> </font><font color='#0000FF'><a name="symtable">symtable</a></font>[<font color='#0000FF'><a name="MAXSYMBOLS">MAXSYMBOLS</a></font>]; 
+
+15   <font color='#0000FF'><b>int</b> </font><font color='#0000FF'><a name="lookup">lookup</a></font>( <font color='#0000FF'><b>char</b> </font><font color=#00000><b>*</b></font><font color='#0000FF'><a name="lexeme">lexeme</a></font>)
+16       {
+17       <font color='#0000FF'><b>for</b> </font>( <font color='#0000FF'><b>int</b> </font><font color='#0000FF'><a name="i">i</a> </font><font color=#00000><b>=</b></font><font color='#00FFFF'><i>0</i></font>; <font color='#0000FF'><a href="#i">i</a> </font><font color=#00000><b><</b></font><font color='#0000FF'><a name="num_symbols">num_symbols</a></font>; <font color='#0000FF'><a href="#i">i</a></font><font color=#00000><b>++</b></font>)
+18           {
+19           <font color='#00FF00'>// printf(&quot;%d %s %s\n&quot;, symtable[i].token, lexeme, symtable[i].lexptr);
+</font>20           <font color='#0000FF'><b>if</b> </font>( <font color='#0000FF'><a name="strcmp">strcmp</a></font>( <font color='#0000FF'><a name="lexeme">lexeme</a></font><font color=#00000><b>,</b></font><font color='#0000FF'><a name="symtable">symtable</a></font>[<font color='#0000FF'><a href="#i">i</a></font>]<font color=#00000><b>.</b></font><font color='#0000FF'><a name="lexptr">lexptr</a></font>)<font color=#00000><b>==</b></font><font color='#00FFFF'><i>0</i></font>)
+21           <font color='#0000FF'><b>return</b> </font><font color='#0000FF'><a name="symtable">symtable</a></font>[<font color='#0000FF'><a href="#i">i</a></font>]<font color=#00000><b>.</b></font><font color='#0000FF'><a name="token">token</a></font>; 
+22           }
+23       <font color='#0000FF'><b>return</b> </font><font color=#00000><b>-</b></font><font color='#00FFFF'><i>1</i></font>; 
+24       }
+
+25   <font color='#0000FF'><b>int</b> </font><font color='#0000FF'><a name="insert">insert</a></font>( <font color='#0000FF'><b>char</b> </font><font color=#00000><b>*</b></font><font color='#0000FF'><a name="a">a</a></font><font color=#00000><b>,</b></font><font color='#0000FF'><b>int</b> </font><font color='#0000FF'><a name="token">token</a></font>)
+26       {
+27       <font color='#0000FF'><b>if</b> </font>( <font color='#0000FF'><a name="num_symbols">num_symbols</a> </font><font color=#00000><b>+</b></font><font color='#00FFFF'><i>1</i></font><font color=#00000><b>></b></font><font color='#0000FF'><a name="MAXSYMBOLS">MAXSYMBOLS</a></font>)
+28           {
+29           <font color='#0000FF'><a name="printf">printf</a></font>( <font color='#FF0000'>&quot;ERROR: Number of identifiers more than limit specified.&quot;</font>); 
+30           <font color='#0000FF'><b>return</b> </font><font color=#00000><b>-</b></font><font color='#00FFFF'><i>1</i></font>; 
+31           }
+32       <font color='#0000FF'><b>else</b> </font>
+33           {
+34           <font color='#0000FF'><b>struct</b> </font><font color='#0000FF'><a href="#entry">entry</a> </font><font color='#0000FF'><a name="identifier">identifier</a> </font><font color=#00000><b>=</b></font>
+35               {<font color='#0000FF'><a name="a">a</a></font><font color=#00000><b>,</b></font><font color='#00FFFF'><i>0</i></font>}; 
+36           <font color='#0000FF'><a name="symtable">symtable</a></font>[<font color='#0000FF'><a href="#num_symbols">num_symbols</a></font><font color=#00000><b>++</b></font>]<font color=#00000><b>=</b></font><font color='#0000FF'><a href="#identifier">identifier</a></font>; 
+37           <font color='#0000FF'><b>return</b> </font><font color='#00FFFF'><i>0</i></font>; 
+38           }
+39       }
+
+40   <font color='#0000FF'><a name="fprintf">fprintf</a></font>( <font color='#0000FF'><a name="stdout">stdout</a></font><font color=#00000><b>,</b></font><font color='#FF0000'>&quot;hello, world\n&quot;</font>); 
+41   <font color='#0000FF'><a name="fprintf">fprintf</a></font>( <font color='#0000FF'><a name="stderr">stderr</a></font><font color=#00000><b>,</b></font><font color='#FF0000'>&quot;this is an error\n&quot;</font>); 
+42   <font color='#0000FF'><b>return</b> </font><font color='#00FFFF'><i>1</i></font>; 
+43   }
+
+</pre></html>

@@ -1,2 +1,2 @@
-# Code-Beautifier
+# Code Beautifier
 Beautifies C code using flex.
